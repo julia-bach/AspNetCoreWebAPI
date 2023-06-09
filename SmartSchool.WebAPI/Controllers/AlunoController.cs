@@ -9,13 +9,22 @@ using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/{version:apiVersion}/[controller]")]
     public class AlunoController : ControllerBase
     {
         public readonly IRepository _repo;
         public readonly IMapper _mapper;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="mapper"></param>
         public AlunoController(IRepository repo, IMapper mapper)
         {
             _mapper = mapper;
@@ -23,6 +32,10 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
 
+        /// <summary>
+        /// Método responsável por retornar todos os alunos.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -30,6 +43,11 @@ namespace SmartSchool.WebAPI.Controllers
             return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
+        /// <summary>
+        /// Método responsável por retornar um aluno por meio de um Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -39,6 +57,11 @@ namespace SmartSchool.WebAPI.Controllers
             return Ok(alunoDto);
         }
 
+        /// <summary>
+        /// Método responsável por criar aluno.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(AlunoRegistrarDto model)
         {
@@ -51,6 +74,12 @@ namespace SmartSchool.WebAPI.Controllers
             return BadRequest("An error ocurred trying to create Aluno.");
         }
 
+        /// <summary>
+        /// Método responsável por editar aluno por meio de um Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public IActionResult Put(int id, AlunoRegistrarDto model)
         {
@@ -65,6 +94,12 @@ namespace SmartSchool.WebAPI.Controllers
             return BadRequest("An error ocurred trying to update Aluno.");
         }
 
+        /// <summary>
+        /// Método responsável por editar parcialmente um aluno por meio de um Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, AlunoRegistrarDto model)
         {
@@ -79,6 +114,11 @@ namespace SmartSchool.WebAPI.Controllers
             return BadRequest("An error ocurred trying to update Aluno.");
         }
 
+        /// <summary>
+        /// Método responsável por deletar aluno por meio de um Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
